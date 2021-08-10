@@ -18,13 +18,14 @@ const Title = styled.h2`
 const Cart = styled.div`
     color: '#fff';
     font-size: 30px;
+    cursor: pointer;
 `;
 
-const Nav = () => {
+const Nav = ({ onShowCart }) => {
     return (
         <Navbar>
             <Title>FOODBERRY</Title>
-            <Cart><i className="fas fa-shopping-cart"></i> ~ 0 </Cart>
+            <Cart onClick={onShowCart}><i className="fas fa-shopping-cart"></i> ~ 0 </Cart>
         </Navbar>
     )
 }
