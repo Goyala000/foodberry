@@ -94,6 +94,15 @@ const Cart = ({ onCloseCart }) => {
     const totalAmount = `$${crtCtx.totalAmount.toFixed(2)}`;
     const hasItems = crtCtx.items.length > 0;
 
+    const cartAddItem = item => {
+        crtCtx.addItem({...item, amount: 1});
+    }
+    
+    const cartRemoveItem = id => {
+        crtCtx.removeItem(id);
+        console.log(id)
+    }
+
     return (
         <Modal>
             <CardView>
@@ -101,11 +110,11 @@ const Cart = ({ onCloseCart }) => {
                 <CartList>
                     <CartInfo>
                         <h3>{item.name}</h3>
-                        <p>${item.price}<span>x1</span></p>
+                        <p>${item.price}<span>x{item.amount}</span></p>
                     </CartInfo>
                     <CartBtn>
-                        <button><i className="fas fa-minus"></i></button>
-                        <button><i className="fas fa-plus"></i></button>
+                        <button onClick={(e) => crtCtx.removeItem(item.id)}><i className="fas fa-minus"></i></button>
+                        <button onClick={(e) => crtCtx.addItem({...item, amount: 1})}><i className="fas fa-plus"></i></button>
                     </CartBtn>
                 </CartList>
             ))}
