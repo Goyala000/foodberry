@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 const InputForm = styled.div`
@@ -14,13 +15,13 @@ const InputForm = styled.div`
     }
 `;
 
-const Input = ({ input, label }) => {
+const Input = React.forwardRef(({ input, label }, ref) => {
     return (
         <InputForm>
             <label htmlFor={input.id}>{label}</label>
-            <input {...input}/>
+            <input ref={ref} {...input}/>
         </InputForm>
     );
-};
+});
 
 export default Input;

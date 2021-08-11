@@ -26,7 +26,7 @@ const Foods = () => {
     return (
         <>
         {avafood.map((food) => (
-            <Food name={food.name} desc={food.desc} price={food.price} key={food.id} />
+            <Food name={food.name} desc={food.desc} price={food.price} key={food.id} id={food.id} />
         ))}
         </>
     )

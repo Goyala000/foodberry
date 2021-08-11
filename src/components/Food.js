@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef, useContext } from 'react';
 import styled from 'styled-components';
 import FoodForm from './FoodForm';
+import CartContext from './store/CartContext';
 
 const FoodCard = styled.div`
     background-color: rgba(255, 255, 255, .5);
@@ -19,7 +20,7 @@ const FoodDesc = styled.div`
     }
 `;
 
-const FoodAcion = styled.div`
+const FoodAcion = styled.form`
     display: grid;
     align-items: center;
 `;
@@ -33,7 +34,30 @@ const CrtBtn = styled.button`
     font-size: 17px;
 `;
 
-const Food = ({ name, desc, price }) => {
+const Food = ({ id, name, desc, price }) => {
+    const amountInputRef = useRef()
+
+    const crtCtx = useContext(CartContext);
+
+    const addToCartHandler = amount => {
+        crtCtx.addItem({
+            id: id,
+            name: name,
+            amount: amount,
+            price: price
+        })
+    }
+
+    const submitHandler = e => {
+        e.preventDefault();
+        const enteredAmount = amountInputRef.current.value;
+        const enteredAmountNumber = +enteredAmount;
+
+        if(enteredAmount.trim().length === 0 || enteredAmountNumber < 1 || enteredAmountNumber > 5) {
+            return;
+        }
+        addToCartHandler(enteredAmountNumber)
+    }
     return (
         <FoodCard>
             <FoodDesc>
@@ -41,14 +65,17 @@ const Food = ({ name, desc, price }) => {
                 <h3>{desc}</h3>
                 <h2>${price}</h2>
             </FoodDesc>
-            <FoodAcion>
-                <FoodForm label="Amount" input={{
-                    id: 'amount',
-                    type: 'number',
-                    min: '1',
-                    max: '5',
-                    defaultValue: '1'
-                }} />
+            <FoodAcion onSubmit={submitHandler} >
+                <FoodForm 
+                    ref={amountInputRef}
+                    label="Amount" 
+                        input={{
+                            id: 'amount',
+                            type: 'number',
+                            min: '1',
+                            max: '5',
+                            defaultValue: '1'
+                        }} />
                 <CrtBtn>Add to Cart</CrtBtn>
             </FoodAcion>
         </FoodCard>

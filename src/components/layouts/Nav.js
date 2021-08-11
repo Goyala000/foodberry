@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import CartContext from '../store/CartContext';
 
 const Navbar = styled.nav`
     height: 60px;
@@ -22,10 +23,15 @@ const Cart = styled.div`
 `;
 
 const Nav = ({ onShowCart }) => {
+    const crtCtx = useContext(CartContext);
+
+    const numOfCartItems = crtCtx.items.reduce((currNum, item) => {
+        return currNum + item.amount;
+    }, 0)
     return (
         <Navbar>
             <Title>FOODBERRY</Title>
-            <Cart onClick={onShowCart}><i className="fas fa-shopping-cart"></i> ~ 0 </Cart>
+            <Cart onClick={onShowCart}><i className="fas fa-shopping-cart"></i> ~ {numOfCartItems} </Cart>
         </Navbar>
     )
 }

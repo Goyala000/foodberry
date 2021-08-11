@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Cart from './Cart/Cart';
+import Cart from './cart/Cart';
 import Foods from './Foods';
 import Nav from './layouts/Nav';
+import CartProvider from './store/CartProvider';
 
 const App = () => {
     const [cartIsShown, setCartIsShown] = useState(false);
@@ -15,11 +16,11 @@ const App = () => {
     }
 
     return (
-        <>
+        <CartProvider>
             {cartIsShown && <Cart onCloseCart={closeCart} />}
             <Nav onShowCart={showCart} />
             <Foods />
-        </>
+        </CartProvider>
     )
 }
 

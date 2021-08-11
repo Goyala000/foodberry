@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+
 import Modal from '../layouts/Modal';
+import CartContext from '../store/CartContext';
 
 const CartDetails = styled.div`
     display: flex;
@@ -24,6 +26,12 @@ const CartActions = styled.div`
 `;
 
 const Cart = ({ onCloseCart }) => {
+    const crtCtx = useContext(CartContext);
+
+    const numOfCartItems = crtCtx.items.reduce((currNum, item) => {
+        return currNum + item.amount;
+    }, 0)
+
     const cartItems = <ul>{[
         {
             id: 1,
@@ -37,7 +45,7 @@ const Cart = ({ onCloseCart }) => {
             {cartItems}
             <CartDetails>
                 <span>Total Amount</span>
-                <span>5</span>
+                <span>{numOfCartItems}</span>
             </CartDetails>
             <CartActions>
                 <button onClick={onCloseCart}>Close</button>
