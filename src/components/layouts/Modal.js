@@ -23,6 +23,7 @@ const ModalOvrl = styled.div`
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
     font-size: 25px;
+    padding: 20px;
 `;
 
 const Backdrop = props => {
